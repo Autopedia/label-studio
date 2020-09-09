@@ -23,8 +23,8 @@
 프로젝트에 필요한 UI 구성에 많은 시간을 들여서 최적화를 진행할 필요가 있음  
 이때 UI Component별 Parameter를 잘 숙지하면 많은 시간을 아끼고 기능을 100% 사용할 수 있음  
 
-[LS UI Component Doc](https://labelstud.io/tags/image.html)  
-[Playground](https://labelstud.io/playground/)   
+- [LS UI Component Doc](https://labelstud.io/tags/image.html)  
+- [Playground](https://labelstud.io/playground/)   
 
 
 ### 3. 프로젝트 셋업  
