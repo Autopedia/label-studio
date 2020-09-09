@@ -39,4 +39,7 @@
 2. AWS Cli Configure : LS가 돌아가는 환경 내에서 AWS cli 인증이 되어 있어야 함. 따라서 AWS CLI 설치 후에 `aws configure`를 입력해서 profile을 등록해 놓을 것  
 3. S3 버킷 연결 시에는 project owner가 해당 권한을 가지고 있는지 체크할 것. 현재는 root 사용자 이외의 다른 사용자를 s3 owner로 설정하는 것이 불가능해서 root로 설정해놓은 상황  
 
+**S3 관련 에러**  
 
+`SignatureNotMatch` : `acess_key`나 `access_secret`에서 스페이스가 하나 더 들어갔을 수도 있으니 `aws configure`를 해서 api token을 다시 입력하도록  
+`403 Forbbiden` : IAM user에 권한이 없어서 그런 걸 수 있음 권한 설정을 다시 할 것  
