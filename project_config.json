@@ -17,9 +17,9 @@
     "source": {
         "name": "source",
         "type": "s3",
-        "path": "car-warning-dataset",
+        "path": "text-header-dataset",
         "params": {
-            "prefix": "images",
+            "prefix": "images1",
             "regex": "^.*\\.(jpeg|png|JPG|gif|GIF|doc|DOC|pdf|PDF)$",
             "data_key": "image",
             "use_blob_urls": true
@@ -28,9 +28,9 @@
     "target": {
         "name": "target",
         "type": "s3-completions",
-        "path": "car-warning-dataset",
+        "path": "text-header-dataset",
         "params": {
-            "prefix": "output",
+            "prefix": "outputs1",
             "create_local_copy": false
         }
     },

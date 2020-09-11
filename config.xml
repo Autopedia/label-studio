@@ -6,16 +6,10 @@
         <Header value="세부 경고등 종류를 골라주세요" />
 
         <RectangleLabels name="major" toName="image" opacity="0.6" strokeColor="red" strokeWidth="2">
-            <Label value="경고등"/>
-            <Label value="표시등"/>
-            <Label value="지시등"/>
+            <Label value="H1"/>
+            <Label value="H2"/>
+            <Label value="p"/>
         </RectangleLabels>
-
-        <Filter name="fl" toName="minor" hotkey="shift+f" minlength="1" />
-        <Choices name="minor" toName="image" perRegion="true" required="true" requiredMessage="경고등 세부 타입을 입력해주세요!">
-            <Choice value="Cat"/>
-            <Choice value="Dog"/>
-        </Choices>
 
     </View>
   </View>
