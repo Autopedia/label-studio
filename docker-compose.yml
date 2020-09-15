@@ -6,12 +6,12 @@ services:
       - PROJECT_NAME=${PROJECT_NAME}
       - PORT=${PORT}
     container_name: ${PROJECT_NAME}
+    image: ${PROJECT_NAME}:latest
     build:
       context: .
       dockerfile: ./Dockerfile
 
     working_dir: /label-studio
-    command: "label-studio start ${PROJECT_NAME} --init -b --host 0.0.0.0 --port ${PORT}"
     ports:
       - "${PORT}:${PORT}"
     restart: always

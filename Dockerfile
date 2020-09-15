@@ -8,14 +8,11 @@ RUN pip install -r requirements.txt
 COPY . /label-studio
 RUN python setup.py develop
 
-# Copy label studio lanuch command and UI configuration
-RUN export ENTRY_PATH="./projects/${PROJECT_NAME}/docker-entrypoint.sh"
-RUN export UI_CONFIG_PATH="./projects/${PROJECT_NAME}/config.xml"
-COPY ${ENTRY_PATH} /label-studio
-COPY ${UI_CONFIG_PATH} /label-studio
+# Copy docker-entrypoint.sh and config.xml from temp directory
+COPY temp/* /label-studio/ 
 
 # Add executable permission
-RUN chmod +x docker-entrypoint.sh
+RUN ["chmod", "+x", "docker-entrypoint.sh"]
 
 EXPOSE ${PORT}
 ENTRYPOINT ["./docker-entrypoint.sh"]

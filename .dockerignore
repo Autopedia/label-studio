@@ -8,7 +8,6 @@
 !tools
 !setup.py
 !requirements.txt
-!**/docker-entrypoint.sh
-!**/config.xml
+!temp
 !projects
 !README.md
