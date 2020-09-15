@@ -43,3 +43,10 @@
 
 `SignatureNotMatch` : `acess_key`나 `access_secret`에서 스페이스가 하나 더 들어갔을 수도 있으니 `aws configure`를 해서 api token을 다시 입력하도록  
 `403 Forbbiden` : IAM user에 권한이 없어서 그런 걸 수 있음 권한 설정을 다시 할 것  
+
+
+## TO-DO  
+
+- [ ] Inject AWS (or GCP) credential info  
+- [ ] Launch with WSGI server 
+- [ ] Nginx Setup for multiple project

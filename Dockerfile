@@ -2,21 +2,20 @@
 FROM python:3.6-slim
 WORKDIR /label-studio
 
-RUN echo "[ Project: ${PROJECT_NAME} ] Start building docker image"
-
 # Copy and install requirements.txt first for caching
 COPY ./requirements.txt /label-studio
 RUN pip install -r requirements.txt
 COPY . /label-studio
 RUN python setup.py develop
 
-COPY ./docker-entrypoint.sh /label-studio
-COPY ./config.xml /label-studio
+# Copy label studio lanuch command and UI configuration
+RUN export ENTRY_PATH="./projects/${PROJECT_NAME}/docker-entrypoint.sh"
+RUN export UI_CONFIG_PATH="./projects/${PROJECT_NAME}/config.xml"
+COPY ${ENTRY_PATH} /label-studio
+COPY ${UI_CONFIG_PATH} /label-studio
 
-# COPY ./projects/task_car_warning/docker-entrypoint.sh docker-entrypoint.sh
+# Add executable permission
 RUN chmod +x docker-entrypoint.sh
 
 EXPOSE ${PORT}
 ENTRYPOINT ["./docker-entrypoint.sh"]
-
-# CMD ["./projects/${PROJECT_NAME}/run.sh"]
