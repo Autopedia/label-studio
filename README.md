@@ -1,222 +1,45 @@
-# Label Studio &middot; ![GitHub](https://img.shields.io/github/license/heartexlabs/label-studio?logo=heartex) ![label-studio:build](https://github.com/heartexlabs/label-studio/workflows/label-studio:build/badge.svg) ![code-coverage](https://github.com/heartexlabs/label-studio/blob/master/.github/test-coverage.svg) ![GitHub release](https://img.shields.io/github/v/release/heartexlabs/label-studio?include_prereleases) &middot;
+## Car Warning Detection Project  
 
-[Website](https://labelstud.io/) • [Docs](https://labelstud.io/guide/) • [Twitter](https://twitter.com/heartexlabs) • [Join Slack Community <img src="https://go.heartex.net/docs/images/slack-mini.png" width="18px"/>](https://join.slack.com/t/label-studio/shared_invite/zt-cr8b7ygm-6L45z7biEBw4HXa5A2b5pw)
+## TO-DO  
 
-<br/>
+- [ ] 경고등 종류 추가하기
+- [ ] 경고등 이미지 S3 등록하기  
+- [ ] 도커 이미지 빌드
 
-**Label Studio is a swiss army knife of data labeling and annotation tools :v:**
- 
-Try it now in a **[running app](https://app.labelstud.io)** and check out the **[introductory post](https://towardsdatascience.com/introducing-label-studio-a-swiss-army-knife-of-data-labeling-140c1be92881#3907-fd502dc24c8d)**.
- 
-Its purpose is to help you label different types of data using a simple interface with a standardized output format. You're dealing with the custom dataset and thinking about creating your tool? Don't - using Label Studio, you can save time and create a custom tool and interface in minutes. 
+## How-to-Run  
 
-<br/>
-
-![Label Studio](https://raw.githubusercontent.com/heartexlabs/label-studio/master/images/annotation_examples.gif)
-
-## Summary
-
-<img align="right" height="180" src="https://github.com/heartexlabs/label-studio/blob/master/images/heartex_icon_opossum_green@2x.png?raw=true" />
-
-- [Quick Start](#quick-start)
-- [One Click Deploy](#one-click-deploy)
-- [Features :star2:](#features-star2)
-- [Use Cases](#use-cases)
-- [Machine Learning Integration](#machine-learning-integration)
-- [For Teams and Enterprises :office:](#label-studio-for-teams-startups-and-enterprises-office)
-- [Ecosystem](#ecosystem)
-- [License](#license)
-
-## Quick Start
-
-```bash
-# Requires >=Python3.5
-pip install label-studio
-
-# Initialize the project in labeling_project path
-label-studio init labeling_project
-
-# Start the server at http://localhost:8080
-label-studio start labeling_project
 ```
+./tool/run.sh
+```  
 
-#### Install on Windows
+## Launch New Project  
 
-For running on Windows, the following wheel packages are needed to be manually downloaded from [Gohlke builds](https://www.lfd.uci.edu/~gohlke/pythonlibs), by ensuring the right python version:
+### 1. 라벨링 프로젝트 브랜치 생성  
+`task_{task name}`과 같은 네이밍으로 새로운 브랜치를 팝니다.  
+예를 들면 경고등 인식 라벨링 프로젝트 같은 경우 `task_car_warning`으로 이름 지었습니다.  
 
-- [lxml](https://www.lfd.uci.edu/~gohlke/pythonlibs/#lxml)
+### 2. UI 셋업  
 
-Install Label Studio:
- 
-```bash
-# Upgrade pip 
-pip install -U pip
+프로젝트에 필요한 UI 구성에 많은 시간을 들여서 최적화를 진행할 필요가 있음  
+이때 UI Component별 Parameter를 잘 숙지하면 많은 시간을 아끼고 기능을 100% 사용할 수 있음  
 
-# Assuming you are running Win64 with Python 3.8, install packages downloaded form Gohlke:
-pip install lxml‑4.5.0‑cp38‑cp38‑win_amd64.whl
+- [LS UI Component Doc](https://labelstud.io/tags/image.html)  
+- [Playground](https://labelstud.io/playground/)   
 
-# Install label studio
-pip install label-studio
-```
 
-#### Install from Anaconda
+### 3. 프로젝트 셋업  
 
-```bash
-conda create --name label-studio python=3.8
-conda activate label-studio
-pip install label-studio
-```
+`config.xml` : UI 구성을 담고 있는 화면  
+`project_config.json` : 프로젝트 전반의 configuration을 담고 있는 `json`  
+`/tools/run.sh` : 위 스크립트를 실행하면 프로젝트 초기화와 함께 서버 실행을 할 수 있음. 다만 `project_config.json`과 내용을 일치시켜준느게 바람직함  
 
-If you see any errors during installation, try to rerun installation
+### 4. S3 버킷 권한 설정  
 
-```bash
-pip install --ignore-installed label-studio
-```
+1. S3 IAM User 생성 : S3 storage를 활용하는 경우 LS는 programmatic한 access하기 때문에 IAM을 통해서 S3 access 권한을 가지는 user를 생성해야 함. 이후 `acess_key` 와 `acess_secret`을 저장할 것
+2. AWS Cli Configure : LS가 돌아가는 환경 내에서 AWS cli 인증이 되어 있어야 함. 따라서 AWS CLI 설치 후에 `aws configure`를 입력해서 profile을 등록해 놓을 것  
+3. S3 버킷 연결 시에는 project owner가 해당 권한을 가지고 있는지 체크할 것. 현재는 root 사용자 이외의 다른 사용자를 s3 owner로 설정하는 것이 불가능해서 root로 설정해놓은 상황  
 
-#### Local development
-Running the latest Label Studio version locally without installing package from pip could be done by:
-```bash
-# Install all package dependencies
-pip install -e .
-```
-```bash
-# Start the server at http://localhost:8080
-python label_studio/server.py start labeling_project --init
-```
+**S3 관련 에러**  
 
-## Run docker
-You can also start serving at `http://localhost:8080` by using docker:
-```bash
-docker run --rm -p 8080:8080 -v `pwd`/my_project:/label-studio/my_project --name label-studio heartexlabs/label-studio:latest label-studio start my_project --init
-```
-
-By default, it starts blank project in `./my_project` directory.
-
-> Note: if `./my_project` folder exists, an exception will be thrown. Please delete this folder or use `--force` option.
-
-You can override the default startup command by appending:
-
-```bash
-docker run -p 8080:8080 -v `pwd`/my_project:/label-studio/my_project --name label-studio heartexlabs/label-studio:latest label-studio start my_project --init --force --template text_classification
-```
-
-If you want to build a local image, run:
-```bash
-docker build -t heartexlabs/label-studio:latest .
-```
-
-## Using docker-compose
-
-You can also start serving at `http://localhost:8080` using docker-compose.
-
-### First time to run the app
-```bash
-INIT_COMMAND='--init' docker-compose up -d
-```
-### Run the app with existing project data
-```bash
-docker-compose up -d
-```
-### Run the app reseting project data
-```bash
-INIT_COMMAND='--init --force' docker-compose up -d
-```
-
-Or you can just use .env file instead of INIT_COMMAND='...' adding this line:
-```bash
-INIT_COMMAND=--init --force
-```
-
-## One Click Deploy
-
-[<img src="https://www.herokucdn.com/deploy/button.svg" height="30px">](https://heroku.com/deploy)
-[<img src="https://azurecomcdn.azureedge.net/mediahandler/acomblog/media/Default/blog/deploybutton.png" height="30px">](https://azuredeploy.net/)
-[<img src="https://deploy.cloud.run/button.svg" height="30px">](https://deploy.cloud.run)
-
-## Features :star2:
-
-- **Simple**: Crafted with minimal UI design. A simple design is the best design.
-- **Configurable**: Using high-level jsx tags config, you can fully customize the visual interface for your data. It feels like building a custom labeling tool for your specific needs. And it's fast to do.
-- **Collaborative Annotations**: Label the same task by two or more people and compare the results. 
-- **Multiple Data Types**: Label _Images_, _Audios_, _Texts_, _HTMLs_, _Pairwise_ types with different labeling scenarios that you define yourself.
-- **Import Formats**: JSON, CSV, TSV, RAR and ZIP archives
-- **Mobile-Friendly**: Works on devices of different sizes.
-- **Embeddable**: It's an [NPM package](https://github.com/heartexlabs/label-studio-frontend) too. You can include it in your projects.
-- **Machine Learning**: Integration support for machine learning. Visualize and compare predictions from different models. Use the best ones for pre-labeling.
-- **Stylable**: Configure the visual appearance to match your company brand, distribute the labeling tasks as a part of your product.
-- **Amazon S3 and Google GCS**: [Read more](https://labelstud.io/blog/release-070-cloud-storage-enablement.html) about Cloud Storages Support and release 0.7.0.
-
-## Use Cases
-
-The list of supported use cases for data annotation. Please contribute your own configs and feel free to extend the base types to support more scenarios. Note that it's not an extensive list and has only major scenarios.
-
-| Task | Description |
-|-|-|
-| **Image** | | 
-| [Classification](https://labelstud.io/templates/image_classification.html) | Put images into categories |
-| Object Detection | Detect objects in an image using a bounding box or polygons |
-| Semantic Segmentation | Detect for each pixel the object category it belongs to | 
-| Pose Estimation | Mark positions of a person’s joints |
-| **Text** | | 
-| [Classification](https://labelstud.io/templates/sentiment_analysis.html) | Put texts into categories |
-| Summarization | Create a summary that represents the most relevant information within the original content |
-| HTML Tagging | Annotate things like resumes, research, legal papers and excel sheet converted to HTML | 
-| **Audio** | |
-| [Classification](https://labelstud.io/templates/audio_classification.html) | Put audios into categories |
-| Speaker Diarisation | partitioning an input audio stream into homogeneous segments according to the speaker identity | 
-| Emotion Recognition | Tag and identifying emotion from the audio |
-| Transcription | Write down verbal communication in text |
-| **Video** | |
-| [Classification](https://labelstud.io/templates/video_classification.html) | Put videos into categories | 
-| **Comparison** | |
-| Pairwise | Comparing entities in pairs to judge which of each entity is preferred | 
-| Ranking | Sort items in the list according to some property |
-
-## Machine Learning Integration
-
-You can easily connect your favorite machine learning framework with Label Studio Machine Learning SDK. It's done in the simple 2 steps:
-1. Start your own ML backend server ([check here for detailed instructions](label_studio/ml/README.md)),
-2. Connect Label Studio to the running ML backend on [/model](http://localhost:8080/model.html) page
-
-That gives you the opportunities to use:
-- **Pre-labeling**: Use model predictions for pre-labeling (e.g. make use on-the-fly model predictions for creating rough image segmentations for further manual refinements)
-- **Autolabeling**: Create automatic annotations
-- **Online Learning**: Simultaneously update (retrain) your model while new annotations are coming
-- **Active Learning**: Perform labeling in active learning mode - select only most complex examples
-- **Prediction Service**: Instantly create running production-ready prediction service
-
-## Label Studio for Teams, Startups, and Enterprises :office:
-
-Label Studio for Teams is our enterprise edition (cloud & on-prem), that includes a data manager, high-quality baseline models, active learning, collaborators support, and more. Please visit the [website](https://www.heartex.ai/) to learn more.
-
-## Ecosystem
-
-| Project | Description |
-|-|-|
-| label-studio | Server part, distributed as a pip package |
-| [label-studio-frontend](https://github.com/heartexlabs/label-studio-frontend) | Frontend part, written in JavaScript and React, can be embedded into your application | 
-| [label-studio-converter](https://github.com/heartexlabs/label-studio-converter) | Encode labels into the format of your favorite machine learning library | 
-| [label-studio-transformers](https://github.com/heartexlabs/label-studio-transformers) | Transformers library connected and configured for use with label studio | 
-
-## Citation
-
-```tex
-@misc{Label Studio,
-  title={{Label Studio}: Data labeling software},
-  url={https://github.com/heartexlabs/label-studio},
-  note={Open source software available from https://github.com/heartexlabs/label-studio},
-  author={
-    Maxim Tkachenko and
-    Mikhail Malyuk and
-    Nikita Shevchenko and
-    Andrey Holmanyuk and
-    Nikolai Liubimov},
-  year={2020},
-}
-```
-
-## License
-
-This software is licensed under the [Apache 2.0 LICENSE](/LICENSE) © [Heartex](https://www.heartex.ai/). 2020
-
-<img src="https://github.com/heartexlabs/label-studio/blob/master/images/opossum_looking.png?raw=true" title="Hey everyone!" height="140" width="140" />
+`SignatureNotMatch` : `acess_key`나 `access_secret`에서 스페이스가 하나 더 들어갔을 수도 있으니 `aws configure`를 해서 api token을 다시 입력하도록  
+`403 Forbbiden` : IAM user에 권한이 없어서 그런 걸 수 있음 권한 설정을 다시 할 것  
