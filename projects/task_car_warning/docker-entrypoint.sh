@@ -1,4 +1,6 @@
 #!/bin/bash
+# export GOOGLE_APPLICATION_CREDENTIALS="doctorcha-ai-3a236e79d498.json"
+
 label-studio start ${PROJECT_NAME} --init -b --host 0.0.0.0 --port ${PORT} \
 --username dingbro --password qwer1234 \
 -l config.xml \
@@ -6,8 +8,8 @@ label-studio start ${PROJECT_NAME} --init -b --host 0.0.0.0 --port ${PORT} \
 --sampling uniform \
 --log-level INFO \
 --force \
---source s3 --source-path car-warning-dataset \
+--source gcs --source-path car-warning-dataset \
 --source-params "{\"use_blob_urls\": true, \"data_key\": \"image\", \"prefix\": \"images1\", \"regex\": \"^.*.(jpeg|jpg|JPG|JPEG)\" }" \
---target s3-completions --target-path car-warning-dataset \
+--target gcs-completions --target-path car-warning-dataset \
 --target-params "{\"prefix\": \"outputs1\", \"create_local_copy\": true}" \
 --use-gevent

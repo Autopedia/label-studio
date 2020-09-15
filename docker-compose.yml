@@ -5,6 +5,7 @@ services:
     environment:
       - PROJECT_NAME=${PROJECT_NAME}
       - PORT=${PORT}
+      - GOOGLE_APPLICATION_CREDENTIALS=${GOOGLE_APPLICATION_CREDENTIALS}
     container_name: ${PROJECT_NAME}
     image: ${PROJECT_NAME}:latest
     build:
