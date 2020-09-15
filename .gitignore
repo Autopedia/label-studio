@@ -1,7 +1,10 @@
 *~
 __pycache__/
 
-car_warning_project/
+projects/task_car_warning/task_car_warning
+projects/task_text_header/task_text_header
+projects/task_keyword_extraction/task_keyword_extraction
+
 
 # Logs
 logs
