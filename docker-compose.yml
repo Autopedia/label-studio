@@ -1,18 +1,18 @@
 version: "3"
 
 services:
-  label-studio:
-    environment:
-      - PROJECT_NAME=${PROJECT_NAME}
-      - PORT=${PORT}
-      - GOOGLE_APPLICATION_CREDENTIALS=${GOOGLE_APPLICATION_CREDENTIALS}
-    container_name: ${PROJECT_NAME}
-    image: ${PROJECT_NAME}:latest
-    build:
-      context: .
-      dockerfile: ./Dockerfile
+    label-studio:
+        environment:
+            - PROJECT_NAME=${PROJECT_NAME}
+            - PORT=${PORT}
+            - GOOGLE_APPLICATION_CREDENTIALS=${GOOGLE_APPLICATION_CREDENTIALS}
+        container_name: ${PROJECT_NAME}
+        image: ${HOSTNAME}/${PROJECT_ID}/${PROJECT_NAME}:latest
+        build:
+            context: .
+            dockerfile: ./Dockerfile
 
-    working_dir: /label-studio
-    ports:
-      - "${PORT}:${PORT}"
-    restart: always
+        working_dir: /label-studio
+        ports:
+            - "${PORT}:${PORT}"
+        restart: always
