@@ -1,6 +1,6 @@
 #!/bin/bash
 
-label-studio start ${PROJECT_NAME:-task_car_warning} --init -b --host 0.0.0.0 --port 8082 \
+label-studio start ${PROJECT_NAME} --init -b --host 0.0.0.0 --port ${PORT} \
 --username dingbro --password qwer1234 \
 --source s3 --source-path car-warning-dataset \
 --source-params "{\"use_blob_urls\": true, \"data_key\": \"image\", \"prefix\": \"images1\", \"regex\": \"^.*.(jpeg|jpg|JPG|JPEG)\" }" \
