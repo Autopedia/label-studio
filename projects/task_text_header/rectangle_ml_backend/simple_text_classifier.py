@@ -2,11 +2,10 @@ import pickle
 import os
 import numpy as np
 
-from sklearn.linear_model import LogisticRegression
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.pipeline import make_pipeline
+
 from google.cloud import storage
 import json
+
 
 from label_studio.ml import LabelStudioMLBase
 
@@ -14,6 +13,7 @@ from label_studio.ml import LabelStudioMLBase
 class SimpleTextClassifier(LabelStudioMLBase):
 
     gs_bucket_path = "text-header-dataset"
+    gs_json_path = "jsons_resize"
 
     def __init__(self, **kwargs):
         # don't forget to initialize base class...
@@ -42,14 +42,14 @@ class SimpleTextClassifier(LabelStudioMLBase):
 
 
     def reset_model(self):
-        self.model = make_pipeline(TfidfVectorizer(ngram_range=(1, 3)), LogisticRegression(C=10, verbose=True))
+        self.model = None
 
     def extract_img_id(self, image_url):
         image_id = image_url.split('?')[0].split('/')[-1].split('.')[0]
         return image_id
 
     def load_img_json(self, image_id):
-        blob = self.bucket.blob(f"jsons2/{image_id}.json")
+        blob = self.bucket.blob(f"{self.gs_json_path}/{image_id}.json")
         data = json.loads(blob.download_as_string(client=None))
         return data
 
