@@ -3,6 +3,9 @@ __pycache__/
 
 projects/task_car_warning/task_car_warning
 projects/task_text_header/task_text_header
+projects/task_text_header/jsons_resize
+projects/task_text_header/tasks
+
 projects/task_keyword_extraction/task_keyword_extraction
 projects/task_tire/spec/task_tire/spec
 
