@@ -9,13 +9,13 @@ label-studio start ${PROJECT_NAME} --init -b --host 0.0.0.0 --port ${PORT} \
 --username dingbro --password qwer1234 \
 -l config.xml \
 --source gcs --source-path text-header-dataset \
---source-params "{\"use_blob_urls\": false, \"prefix\": \"tasks_resize\", \"regex\": \"^.*.json\" }" \
+--source-params "{\"use_blob_urls\": false, \"prefix\": \"tasks_resize_2\", \"regex\": \"^.*.json\" }" \
 -c project_config.json \
 --sampling uniform \
 --log-level INFO \
 --force \
 --target gcs-completions --target-path text-header-dataset \
---target-params "{\"prefix\": \"outputs_resize\"}" \
+--target-params "{\"prefix\": \"outputs_resize_2\"}" \
 # --use-gevent
 
 

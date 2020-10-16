@@ -9,11 +9,11 @@
 
 
         <RectangleLabels name="major" toName="image" opacity="0.6" strokeColor="red" strokeWidth="2">
-            <Label value="H1"/>
-            <Label value="H2"/>
-            <Label value="H3"/>
-            <Label value="p"/>
-            <Label value="no-tag"/>
+            <Label value="H1" background="red"/>
+            <Label value="H2" background="blue"/>
+            <Label value="H3" background="purple"/>
+            <Label value="p" background="green"/>
+            <Label value="no-tag" background="yellow"/>
         </RectangleLabels>
 
     </View>

@@ -13,7 +13,7 @@ from label_studio.ml import LabelStudioMLBase
 class SimpleTextClassifier(LabelStudioMLBase):
 
     gs_bucket_path = "text-header-dataset"
-    gs_json_path = "jsons_resize"
+    gs_json_path = "jsons_resize_2"
 
     def __init__(self, **kwargs):
         # don't forget to initialize base class...
