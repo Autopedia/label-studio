@@ -1,5 +1,7 @@
 #!/bin/bash
-# export GOOGLE_APPLICATION_CREDENTIALS="doctorcha-ai-3a236e79d498.json"
+export GOOGLE_APPLICATION_CREDENTIALS="../../.credential/doctorcha-ai.json"
+export PROJECT_NAME=task_car_warning
+export PORT=6000
 
 label-studio start ${PROJECT_NAME} --init -b --host 0.0.0.0 --port ${PORT} \
 --username dingbro --password qwer1234 \
