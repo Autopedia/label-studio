@@ -10,11 +10,13 @@
         </RectangleLabels>
       
         <Header value="결함 경계면 타입" />
-        <BrushLabels name="seg_label" toName="image" opacity="0.6">
-            <Label value="impurity" hotkey="q" background="yellow"/>
-            <Label value="bubble" hotkey="w" background="purple" />
-            <Label value="wire" hotkey="e" background="orange" />
-        </BrushLabels>
+        <PolygonLabels name="seg_label" toName="image"
+                 strokeWidth="3" pointSize="small"
+                 opacity="0.9">
+            <Label value="impurity" hotkey="q" background="red"/>
+            <Label value="bubble" hotkey="w" background="blue" />
+            <Label value="wire" hotkey="e" background="green" />
+        </PolygonLabels>
 
 
     </View>
