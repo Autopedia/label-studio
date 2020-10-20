@@ -7,7 +7,7 @@ label-studio start ${PROJECT_NAME} --init -b --host 0.0.0.0 --port ${PORT} \
 --username dingbro --password qwer1234 \
 -l ah-config.xml \
 -c project_config.json \
---sampling uniform \
+--sampling sequential \
 --log-level INFO \
 --force \
 --source gcs --source-path hankooktier \
